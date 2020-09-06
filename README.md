@@ -1,2 +1,2 @@
-# udacity-project-capstone
-This repo is for udacity project captsone
+# Udacity-capstone
+This Repo is for Udacity Project Capstone

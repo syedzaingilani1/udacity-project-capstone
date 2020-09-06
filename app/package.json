@@ -1,0 +1,15 @@
+{
+  "name": "project-capstone",
+  "version": "1.0.0",
+  "description": "Project 5 of Udacity Nanodegree Program",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Talha Nasim",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}
