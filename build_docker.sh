@@ -2,7 +2,7 @@
 
 cd app
 
-docker build --tag=talha110/talha-project-capstone .
+docker build --tag=talha110/project-capstone .
 
 
 # listing images 
