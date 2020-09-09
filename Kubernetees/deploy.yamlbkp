@@ -37,7 +37,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: udacity
-        image: talha110/talha-project-capstone:v1
+        image: imjuhilsomaiya/capstone_project_express:v1
         command: [
           "/bin/bash", 
           "start_docker.sh"
