@@ -1,3 +1,0 @@
-# starting application
-
-npm start
