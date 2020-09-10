@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # docker path
-dockerpath=talha110/talha-project-capstone
+dockerpath=talha110/project-capstone
 
 # Step 2:
 # Authenticate & tag
