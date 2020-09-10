@@ -58,7 +58,7 @@ pipeline {
               steps{
                   echo 'Checking app status'
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
-                     sh "curl a8c5c6b62d7c045378e5c05164b89250-1817186258.ap-south-1.elb.amazonaws.com"
+                     sh ""
                 }
             }
         } 
