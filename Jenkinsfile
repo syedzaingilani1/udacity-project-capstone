@@ -49,7 +49,7 @@ pipeline {
               steps{
                   echo 'Deploying to AWS...'
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
-                      sh "aws eks --region us-east-1 update-kubeconfig --name udacity-capstone"
+                      sh "aws eks --region us-east-1 update-kubeconfig --name udacity-capstone-project"
                       sh "kubectl config use-context arn:aws:eks:us-east-1:363487036927:cluster/udacity-capstone"
                       sh "kubectl apply -f ./cluster/deploy.yaml"
                       sh "kubectl get nodes"
