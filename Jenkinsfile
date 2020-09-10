@@ -45,7 +45,7 @@ pipeline {
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
                       sh "aws eks --region us-east-1 update-kubeconfig --name udacity-capstone-project"
                       sh "kubectl config use-context arn:aws:eks:us-east-1:084727192731:cluster/udacity-capstone-project"
-                      sh "kubectl apply -f ./clusters/deploy.yaml"
+                      sh "kubectl apply -f ./cluster/deploy.yaml"
                       sh "kubectl get nodes"
                       sh "kubectl get deployments"
                       sh "kubectl get pod -o wide"
