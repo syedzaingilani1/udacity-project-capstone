@@ -1,4 +1,3 @@
-  
 pipeline {
     agent any
     stages {
@@ -65,7 +64,7 @@ pipeline {
               steps{
                   echo 'Checking if app is up...'
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
-                     sh "curl http://acffaba8e3ff5417fb6d7791ba624482-1155887197.us-east-1.elb.amazonaws.com"
+                     sh ""
                 }
             }
         } 
