@@ -28,7 +28,7 @@
   Dockerfile : dockerfile that consists step of installing dependencies, commands to run an app
   static/index.html : html file that will be rendered
   start_docker.sh : main command to start application within kubernates cluster
-  screenshots: that consistes series of progress of this project
+  screenshots: All the steps screenshots are uploaded on screenshot folder
   ```
 
   
