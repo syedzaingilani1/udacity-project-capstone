@@ -2,13 +2,13 @@ pipeline {
     agent any
     stages {
         
-        stage('---- Build Started ---- '){
+        stage('Build Started'){
             steps{
                 sh "echo Building ${env.JOB_NAME} ${env.BUILD_NUMBER}"
             }
         }
         
-        stage('---- Checking and Installing Hadolint ----'){
+        stage('Installing hadolint if doesnt exist'){
             steps{
                 sh '''
                     if ! [ -x "$(command -v hadolint)" ]; then
@@ -19,32 +19,38 @@ pipeline {
             }
         }
         
-        stage('---- Linting Docker File ----'){
+        stage('Lint Docker File'){
             steps{
                 sh 'make lint'
             }
         }
         
-        stage('---- Building Docker Image ----') {
+        /* stage('Security Scan') {
+            steps { 
+                aquaMicroscanner imageName: 'node:10.15.0-alpine', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+            }
+        } */   
+        
+        stage('Build Docker Image') {
             steps {
                 sh 'bash build_docker.sh'
             }
         }
         
-        stage('---- Pushing Docker Image ----') {
+        stage('Push Docker Image') {
             steps {
                 withDockerRegistry([url: "", credentialsId: "docker-id"]) {
                     sh 'bash upload_docker.sh'
                 }
             }
         }
-  
-         stage('---- Deploying app to AWS EKS ----') {
+        
+        stage('Deploying') {
               steps{
-                  echo 'Deploying to AWS EKS ....'
+                  echo 'Deploying to AWS...'
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
-                      sh "aws eks --region us-east-1 update-kubeconfig --name udacity-capstone-project"
-                      sh "kubectl config use-context arn:aws:eks:us-east-1:084727192731:cluster/udacity-capstone-project"
+                      sh "aws eks --region us-east-1 update-kubeconfig --name udacity-capstone"
+                      sh "kubectl config use-context arn:aws:eks:us-east-1:363487036927:cluster/udacity-capstone"
                       sh "kubectl apply -f ./cluster/deploy.yaml"
                       sh "kubectl get nodes"
                       sh "kubectl get deployments"
@@ -54,21 +60,28 @@ pipeline {
             }
         }
         
-        stage('---- Checking app status ----') {
+         stage('Checking if app is up') {
               steps{
-                  echo 'Checking app status'
+                  echo 'Checking if app is up...'
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
-                     sh "af4cb5f76aeb64a6f89d95ec0ebbec99-693568984.us-east-1.elb.amazonaws.com"
+                     sh "http://af4cb5f76aeb64a6f89d95ec0ebbec99-693568984.us-east-1.elb.amazonaws.com/"
                 }
             }
         } 
         
-        stage('---- Checking rollout ----') {
+        stage('Checking rollout') {
               steps{
                   echo 'Checking rollout...'
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
                      sh "kubectl rollout status deployments/capstone-app"
                 }
+            }
+        }
+        
+        stage("Cleaning up") {
+              steps{
+                    echo 'Cleaning up...'
+                    sh "docker system prune"
             }
         }
     }
