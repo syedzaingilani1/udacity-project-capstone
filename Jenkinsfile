@@ -55,7 +55,7 @@ pipeline {
                       sh "kubectl get nodes"
                       sh "kubectl get deployments"
                       sh "kubectl get pod -o wide"
-                      sh "kubectl get service/capstone-app"
+                      sh "kubectl get service/capstone-app-6999d98dd6-lf69p"
                 }
             }
         }
@@ -73,7 +73,7 @@ pipeline {
               steps{
                   echo 'Checking rollout...'
                   withAWS(credentials: 'capstone', region: 'us-east-1') {
-                     sh "kubectl rollout status deployments/capstone-app"
+                     sh "kubectl rollout status deployments/capstone-app-6999d98dd6-lf69p "
                 }
             }
         }
