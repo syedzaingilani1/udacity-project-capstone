@@ -60,14 +60,7 @@ pipeline {
             }
         }
         
-         stage('Checking if app is up') {
-              steps{
-                  echo 'Checking if app is up...'
-                  withAWS(credentials: 'capstone', region: 'us-east-1') {
-                     sh "http://af4cb5f76aeb64a6f89d95ec0ebbec99-693568984.us-east-1.elb.amazonaws.com/"
-                }
-            }
-        } 
+        
         
         stage('Checking rollout') {
               steps{
